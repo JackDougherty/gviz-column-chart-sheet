@@ -1,6 +1,6 @@
 gviz-column-chart-sheet
 =======================
 
-Google Visualization API interactive column chart, with stacked option, which draws data from Google Spreadsheet
+Use this template to create a custom interactive column chart (with stacked chart option) that draws data from a Google Spreadsheet, using Google Visualization API
 
 Demo at http://jackdougherty.github.io/gviz-column-chart-sheet/
