@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Column Chart from Google Sheet</title>
+    
+      <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+    function drawChart() {
+     // To see the data that this visualization uses, browse to
+      // https://docs.google.com/spreadsheet/ccc?key=0AtmGKybdRLlZdEhFZkdOczV5XzNjUzNobGh6VmJfZXc
+      // In your Google Sheet, copy only the key from the URL (the portion immediately after "key=") and paste in below
+      // Adjust the cell range (e.g. A1:D9) to match data in your Google Sheet
+      // In your Google Sheet, File > Publish to the Web
+      var query = new google.visualization.Query(
+          'http://spreadsheets.google.com/tq?key=0AtmGKybdRLlZdEhFZkdOczV5XzNjUzNobGh6VmJfZXc&range=A1:D9&pub=1');
+    
+      // Send the query with a callback function.
+      query.send(handleQueryResponse);
+    }
+    function handleQueryResponse(response) {
+      if (response.isError()) {
+        alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+        return;
+      }
+      var data = response.getDataTable();
+      // Modify row and column headers in the Google Sheet
+      // Insert titles, font sizes, and legend colors below.
+      // Set column chart data "isStacked: true" if desired
+      // See more Column Chart options at 
+      // https://developers.google.com/chart/interactive/docs/gallery/columnchart
+      var options = {
+          title: 'Insert title', titleTextStyle: {fontSize: 20},
+          vAxis: {title: 'Insert vertical axis label', titleTextStyle: {fontSize: 14}, format:'$#,###', gridlines: {count:4}}, 
+          hAxis: {title: 'Insert horizontal axis label',  titleTextStyle: {fontSize: 14}}, 
+          width: 600,
+          height: 600,
+          legend:'right',colors:["yellow","blue","red"],
+          isStacked: true};
+
+      chart = new google.visualization.ColumnChart(document.getElementById('column_chart'));
+      chart.draw(data, options);
+  }
+  </script>
+  <body style="font-family: Arial;border: 0 none;">
+    Insert title (or delete and embed chart as an <a href="http://www.w3schools.com/tags/tag_iframe.asp" target="_blank">iframe</a> in another web page)
+      <!-- This div will hold the chart. Modify your own text and links -->
+  <div id="column_chart"></div> 
+    Data source: (insert, with optional <a href="https://docs.google.com/spreadsheet/ccc?key=0AtmGKybdRLlZdEhFZkdOczV5XzNjUzNobGh6VmJfZXc" target="_blank">link to Google Sheet</a></br>
+    Chart created with Google Visualization API, with guide at</br><a href="https://github.com/JackDougherty/gviz-column-chart-sheet" target="_blank">https://github.com/JackDougherty/gviz-column-chart-sheet</a>
+  </body>
+</html>
